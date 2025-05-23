@@ -50,6 +50,7 @@ const displayAllphonne = (phones) => {
     <p>${slug}</p>
     <div class="card-actions">
       <button onClick="phoneDetails('${slug}')" class="btn btn-primary" >Show Details</button>
+     
     </div>
   </div>
 </div>`
@@ -74,11 +75,28 @@ const handleShowAll = () => {
 }
 
 // Show all phones Details Function
-const phoneDetails = async (slug) => {
+const phoneDetails = async (slugs) => {
   const response = await fetch(`https://open
-api.programming-hero.com/api/phone/${slug}`);
+api.programming-hero.com/api/phone/${slugs}`);
   const data = await response.json();
   console.log(data.data);
+  const{brand,image,slug}=data.data;
+  //show data in modal
+  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML=` <dialog id="my_modal_1" class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">${brand}</h3>
+    <p class="py-4">${slug}</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+ `
+  my_modal_1.showModal();
 
 }
 
